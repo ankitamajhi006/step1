@@ -278,3 +278,26 @@ import java.util.LinkedList;
             return isPalindromeRecursive(str, start + 1, end - 1);
         }
     }
+    public class UseCase10PalindromeCheckerApp {
+
+        public static void main(String[] args) {
+            // Word or phrase to check
+            String phrase = "A man a plan a canal Panama";
+
+            // Normalize: remove spaces and convert to lower case
+            String normalized = phrase.replaceAll("\\s+", "").toLowerCase();
+
+            // Check palindrome using simple reverse logic
+            String reversed = "";
+            for (int i = normalized.length() - 1; i >= 0; i--) {
+                reversed += normalized.charAt(i);
+            }
+
+            // Print result
+            if (normalized.equals(reversed)) {
+                System.out.println("The phrase \"" + phrase + "\" is a palindrome ignoring spaces and case.");
+            } else {
+                System.out.println("The phrase \"" + phrase + "\" is NOT a palindrome ignoring spaces and case.");
+            }
+        }
+    }
