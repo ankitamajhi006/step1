@@ -154,3 +154,62 @@ public class PalindromeCheckerApp {
         }
     }
 }
+import java.util.*;
+
+// Main application class
+public class UseCase12PalindromeCheckerApp {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=== Strategy Pattern Palindrome Checker ===");
+        System.out.print("Enter a word or phrase: ");
+        String word = scanner.nextLine();
+
+        // Dynamically choose a strategy
+        PalindromeStrategy strategy;
+
+        // Use Stack-based strategy
+        strategy = new StackStrategy();
+        checkWithStrategy(word, strategy);
+
+        // Use Deque-based strategy
+        strategy = new DequeStrategy();
+        checkWithStrategy(word, strategy);
+    }
+
+    // Helper method to execute a strategy
+    private static void checkWithStrategy(String word, PalindromeStrategy strategy) {
+        boolean result = strategy.isPalindrome(word);
+        System.out.println("Using " + strategy.getClass().getSimpleName() +
+                ": \"" + word + "\" is " + (result ? "" : "NOT ") + "a palindrome.");
+    }
+}
+
+// Strategy interface
+interface PalindromeStrategy {
+    boolean isPalindrome(String word);
+}
+
+// Stack-based strategy
+class StackStrategy implements PalindromeStrategy {
+    @Override
+    public boolean isPalindrome(String word) {
+        Stack<Character> stack = new Stack<>();
+        for (char ch : word.toCharArray()) stack.push(ch);
+        for (char ch : word.toCharArray()) if (ch != stack.pop()) return false;
+        return true;
+    }
+}
+
+// Deque-based strategy
+class DequeStrategy implements PalindromeStrategy {
+    @Override
+    public boolean isPalindrome(String word) {
+        Deque<Character> deque = new LinkedList<>();
+        for (char ch : word.toCharArray()) deque.addLast(ch);
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) return false;
+        }
+        return true;
+    }
+}
