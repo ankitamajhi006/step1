@@ -97,3 +97,42 @@ public class PalindromeCheckerApp {
             }
         }
     }
+    import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+    public class UseCase6PalindromeCheckerApp {
+        public static void main(String[] args) {
+            // Word to check
+            String word = "level";
+
+            // Create a queue (FIFO) and a stack (LIFO)
+            Queue<Character> queue = new LinkedList<>();
+            Stack<Character> stack = new Stack<>();
+
+            // Enqueue and push all characters
+            for (int i = 0; i < word.length(); i++) {
+                char ch = word.charAt(i);
+                queue.add(ch);  // enqueue
+                stack.push(ch); // push to stack
+            }
+
+            // Compare dequeue vs pop
+            boolean isPalindrome = true;
+            while (!queue.isEmpty()) {
+                char fromQueue = queue.remove(); // dequeue
+                char fromStack = stack.pop();    // pop from stack
+                if (fromQueue != fromStack) {
+                    isPalindrome = false;
+                    break;
+                }
+            }
+
+            // Display result
+            if (isPalindrome) {
+                System.out.println("The word \"" + word + "\" is a palindrome using Queue+Stack check.");
+            } else {
+                System.out.println("The word \"" + word + "\" is NOT a palindrome using Queue+Stack check.");
+            }
+        }
+    }
