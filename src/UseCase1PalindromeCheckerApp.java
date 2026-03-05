@@ -167,3 +167,85 @@ import java.util.LinkedList;
             }
         }
     }
+    public class UseCase8PalindromeCheckerApp {
+
+        // Node class for singly linked list
+        static class Node {
+            char data;
+            Node next;
+            Node(char data) { this.data = data; }
+        }
+
+        public static void main(String[] args) {
+            // Word to check
+            String word = "madam";
+
+            // Convert string to linked list
+            Node head = null, tail = null;
+            for (char ch : word.toCharArray()) {
+                Node newNode = new Node(ch);
+                if (head == null) {
+                    head = tail = newNode;
+                } else {
+                    tail.next = newNode;
+                    tail = newNode;
+                }
+            }
+
+            // Check if palindrome
+            boolean isPalindrome = checkPalindrome(head);
+
+            // Print result
+            if (isPalindrome) {
+                System.out.println("The word \"" + word + "\" is a palindrome using Linked List.");
+            } else {
+                System.out.println("The word \"" + word + "\" is NOT a palindrome using Linked List.");
+            }
+        }
+
+        // Method to check palindrome using linked list
+        private static boolean checkPalindrome(Node head) {
+            if (head == null || head.next == null) return true;
+
+            // Find middle using fast and slow pointers
+            Node slow = head, fast = head;
+            while (fast.next != null && fast.next.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+
+            // Reverse second half
+            Node secondHalf = reverseList(slow.next);
+
+            // Compare first and second halves
+            Node firstHalf = head;
+            Node tempSecond = secondHalf;
+            boolean result = true;
+            while (tempSecond != null) {
+                if (firstHalf.data != tempSecond.data) {
+                    result = false;
+                    break;
+                }
+                firstHalf = firstHalf.next;
+                tempSecond = tempSecond.next;
+            }
+
+            // Optional: Restore the list (not necessary here)
+            slow.next = reverseList(secondHalf);
+
+            return result;
+        }
+
+        // Helper method to reverse a linked list
+        private static Node reverseList(Node head) {
+            Node prev = null;
+            Node current = head;
+            while (current != null) {
+                Node nextTemp = current.next;
+                current.next = prev;
+                prev = current;
+                current = nextTemp;
+            }
+            return prev;
+        }
+    }
