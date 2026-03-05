@@ -213,3 +213,83 @@ class DequeStrategy implements PalindromeStrategy {
         return true;
     }
 }
+import java.util.*;
+
+public class UseCase13PalindromeCheckerApp {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=== Palindrome Performance Comparison ===");
+        System.out.print("Enter a word or phrase: ");
+        String word = scanner.nextLine();
+
+        // UC3: Reverse String Method
+        long start = System.nanoTime();
+        boolean reverseResult = checkPalindromeReverse(word);
+        long end = System.nanoTime();
+        System.out.println("[Reverse String] Result: " + reverseResult + ", Time: " + (end - start) + " ns");
+
+        // UC4: Character Array Method
+        start = System.nanoTime();
+        boolean charArrayResult = checkPalindromeCharArray(word);
+        end = System.nanoTime();
+        System.out.println("[Char Array] Result: " + charArrayResult + ", Time: " + (end - start) + " ns");
+
+        // UC5: Stack Method
+        start = System.nanoTime();
+        boolean stackResult = checkPalindromeStack(word);
+        end = System.nanoTime();
+        System.out.println("[Stack] Result: " + stackResult + ", Time: " + (end - start) + " ns");
+
+        // UC7: Deque Method
+        start = System.nanoTime();
+        boolean dequeResult = checkPalindromeDeque(word);
+        end = System.nanoTime();
+        System.out.println("[Deque] Result: " + dequeResult + ", Time: " + (end - start) + " ns");
+
+        // UC9: Recursive Method
+        start = System.nanoTime();
+        boolean recursiveResult = checkPalindromeRecursive(word, 0, word.length() - 1);
+        end = System.nanoTime();
+        System.out.println("[Recursive] Result: " + recursiveResult + ", Time: " + (end - start) + " ns");
+    }
+
+    // UC3: Reverse String Method
+    private static boolean checkPalindromeReverse(String str) {
+        String reversed = "";
+        for (int i = str.length() - 1; i >= 0; i--) reversed += str.charAt(i);
+        return str.equals(reversed);
+    }
+
+    // UC4: Character Array Method
+    private static boolean checkPalindromeCharArray(String str) {
+        char[] chars = str.toCharArray();
+        for (int i = 0, j = chars.length - 1; i < j; i++, j--) {
+            if (chars[i] != chars[j]) return false;
+        }
+        return true;
+    }
+
+    // UC5: Stack Method
+    private static boolean checkPalindromeStack(String str) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : str.toCharArray()) stack.push(c);
+        for (char c : str.toCharArray()) if (c != stack.pop()) return false;
+        return true;
+    }
+
+    // UC7: Deque Method
+    private static boolean checkPalindromeDeque(String str) {
+        Deque<Character> deque = new LinkedList<>();
+        for (char c : str.toCharArray()) deque.addLast(c);
+        while (deque.size() > 1) if (!deque.removeFirst().equals(deque.removeLast())) return false;
+        return true;
+    }
+
+    // UC9: Recursive Method
+    private static boolean checkPalindromeRecursive(String str, int start, int end) {
+        if (start >= end) return true;
+        if (str.charAt(start) != str.charAt(end)) return false;
+        return checkPalindromeRecursive(str, start + 1, end - 1);
+    }
+}
