@@ -301,3 +301,43 @@ import java.util.LinkedList;
             }
         }
     }
+    public class UseCase11PalindromeCheckerApp {
+
+        public static void main(String[] args) {
+            // Word to check
+            String word = "radar";
+
+            // Create PalindromeChecker object
+            PalindromeChecker checker = new PalindromeChecker();
+
+            // Use the class method to check palindrome
+            boolean isPalindrome = checker.checkPalindrome(word);
+
+            // Print result
+            if (isPalindrome) {
+                System.out.println("The word \"" + word + "\" is a palindrome (Object-Oriented check).");
+            } else {
+                System.out.println("The word \"" + word + "\" is NOT a palindrome (Object-Oriented check).");
+            }
+        }
+    }
+
+    // Encapsulated palindrome logic
+    class PalindromeChecker {
+
+        // Method to check if a string is palindrome
+        public boolean checkPalindrome(String str) {
+            if (str == null || str.length() <= 1) return true;
+
+            int start = 0;
+            int end = str.length() - 1;
+
+            while (start < end) {
+                if (str.charAt(start) != str.charAt(end)) return false;
+                start++;
+                end--;
+            }
+
+            return true;
+        }
+    }
