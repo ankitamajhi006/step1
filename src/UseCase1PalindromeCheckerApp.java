@@ -21,7 +21,9 @@ public class PalindromeCheckerApp {
         }
         System.out.println();
 
-        // ------------------ UC3: Palindrome Check Using String Reverse ------------------
+        //
+        //  UC3: Palindrome Check Using String Reverse
+
         String uc3Word = "racecar";
         String uc3Reversed = "";
         for (int i = uc3Word.length() - 1; i >= 0; i--) {
@@ -33,4 +35,36 @@ public class PalindromeCheckerApp {
             System.out.println("UC3 Result: The word \"" + uc3Word + "\" is NOT a palindrome.");
         }
     }
-}
+    public class UseCase4PalindromeCheckerApp {
+        public static void main(String[] args) {
+            // The word we want to check
+            String word = "level";
+
+            // Convert the string into a character array
+            char[] chars = word.toCharArray();
+
+            // Two pointers: start and end
+            int start = 0;
+            int end = chars.length - 1;
+
+            // Flag to keep track if it's a palindrome
+            boolean isPalindrome = true;
+
+            // Compare characters from both ends
+            while (start < end) {
+                if (chars[start] != chars[end]) {
+                    isPalindrome = false;
+                    break; // Stop if any mismatch found
+                }
+                start++;
+                end--;
+            }
+
+            // Display the result in a human-friendly way
+            if (isPalindrome) {
+                System.out.println("The word \"" + word + "\" is a palindrome.");
+            } else {
+                System.out.println("The word \"" + word + "\" is NOT a palindrome.");
+            }
+        }
+    }
